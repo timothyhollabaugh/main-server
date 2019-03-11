@@ -1,7 +1,7 @@
-## backend
+# backend
 Coded in Rust, manages database manipulation using AJAX requests from frontend.
 
-### Dependencies:
+## Dependencies:
 * [Rouille 3.0.0](https://github.com/tomaka/rouille)
 * [Diesel 1.3.3](https://github.com/diesel-rs/diesel)
 * [dotenv 0.13.0](https://github.com/sgrif/rust-dotenv)
@@ -10,8 +10,8 @@ Coded in Rust, manages database manipulation using AJAX requests from frontend.
 * [log 0.4](https://github.com/rust-lang-nursery/log)
 * [simplelog](https://github.com/drakulix/simplelog.rs)
 
-### API Calls
-
+## API Calls
+#### Users
 `GET /users/`
 Gets information about every user in the system. Returns a List of Users.
 
@@ -33,7 +33,7 @@ Updates a given user.
 
 `DELETE /users/{id: u64}`
 Deletes a given user
-
+#### Departments
 `GET /departments/`
 Gets all departments, with their ID, name, and abbrevation
 
@@ -52,7 +52,7 @@ Updates a given department.
 
 `DELETE /departments/{id: u64}`
 Deletes a given department
-
+#### User Departments
 `GET /user_departments/`
 Gets all user_departments, with their ID, the user's first and last name, and the department name.
 
@@ -76,7 +76,7 @@ Updates a given user_department.
 Deletes a given user_department
 
   
-### Data Models
+## Data Models
 
 Many of the API calls share a common set of data models, represented in JSON format.
 
@@ -144,6 +144,20 @@ Many of the API calls share a common set of data models, represented in JSON for
 | name          | String | No       | The name of the department                                           |
 | abbreviation  | String | No       | The abbreviation for the department according to Rowan Section Tally |
 
+```
+{
+    "departments": [
+    {
+    "name": "Electrical and Computer Engineering"
+    "abbreviation": "ECE",
+    },
+    {
+    "name": Mechanical Engineering"
+    "abbreviation": "MECH",
+    }
+    ]
+}
+```
 #### User_Departments
 | Property Name | Type   | Optional | Description                                      |
 |---------------|--------|----------|--------------------------------------------------|
@@ -151,4 +165,26 @@ Many of the API calls share a common set of data models, represented in JSON for
 | user_id       | u64    | No       | The internal id of the user                      |
 | department_id | u64    | No       | The internal id of the department the user is in |
 
-
+```
+{
+    "user_departments": [
+    {
+    "department_name": "Electrical and Computer Engineering"
+    "user_first_name": "Nicholas",
+    "user_last_name": "Kluzynski"
+    },
+    {
+    "department_name": "Mechanical Engineering"
+    "user_first_name": "Lizzy",
+    "user_last_name": "Amory"
+    }
+    ]
+}
+```
+For user departments, this is what is returned from the search. To send a POST, it needs the following:
+```
+{
+  "user_id":2,
+  "department_id":4
+}
+```
