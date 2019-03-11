@@ -17,7 +17,7 @@ Gets information about every user in the system. Returns a List of Users.
 
 `GET /users/?searchterm=searchtype,parameter`
 Searches users
-  + Available search terms: fisrt_name, last_name, email, and banner_id
+  + Available search terms: first_name, last_name, email, and banner_id
   + Available search types: partial, exact
   + Parameter is what needs to be searched
   + Multiple searches can be done by seperating them with an &
@@ -54,8 +54,10 @@ Updates a given department.
 Deletes a given department
 
 `GET /user_departments/`
-Gets all user_departments, with their ID, user first and last name, and department name.
-This is done by joining the users and dpeartments tables via the foreign keys in the user_department table
+Gets all user_departments, with their ID, the user's first and last name, and the department name.
+
+
+This is done by joining the users and departments tables via the foreign keys in the user_department table
   
 `GET /user_departments/?searchterm=searchtype,parameter`
 Searches user_departments
