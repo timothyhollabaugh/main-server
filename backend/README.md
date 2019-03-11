@@ -16,10 +16,11 @@ Coded in Rust, manages database manipulation using AJAX requests from frontend.
 Gets information about every user in the system. Returns a List of Users.
 
 `GET /users/?searchterm=searchtype,parameter`
-  Available search terms: fisrt_name, last_name, email, and banner_id
-  Available search types: partial, exact
-  Parameter is what needs to be searched
-  Multiple searches can be done by seperating them with an &
+Searches users
+  + Available search terms: fisrt_name, last_name, email, and banner_id
+  + Available search types: partial, exact
+  + Parameter is what needs to be searched
+  + Multiple searches can be done by seperating them with an &
 
 `GET /users/{id: u64}`
 Gets information about the user with the given id. Returns a single User.
@@ -36,11 +37,12 @@ Deletes a given user
 `GET /departments/`
 Gets all departments, with their ID, name, and abbrevation
 
-`GET /departments/?searchterm=searchtype,parameter`
-  Available search terms: name, abbreviation
-  Available search types: partial, exact
-  Parameter is what needs to be searched
-  Multiple searches can be done by seperating them with an &
+`GET /departments/?searchterm=searchtype,parameter` 
+Searches departments
+  + Available search terms: name, abbreviation
+  + Available search types: partial, exact  
+  + Parameter is what needs to be searched  
+  + Multiple searches can be done by seperating them with an &
   
 `POST /departments`
 Creates a new department. The body of POST should be a valid Department. Returns the id of the created department.
@@ -56,10 +58,11 @@ Gets all user_departments, with their ID, user first and last name, and departme
 This is done by joining the users and dpeartments tables via the foreign keys in the user_department table
   
 `GET /user_departments/?searchterm=searchtype,parameter`
-  Available search terms: department_name, department_abbreviation, user_first_name, user_last_name
-  Available search types: partial, exact
-  Parameter is what needs to be searched
-  Multiple searches can be done by seperating them with an &
+Searches user_departments
+  + Available search terms: department_name, department_abbreviation, user_first_name, user_last_name
+  + Available search types: partial, exact
+  + Parameter is what needs to be searched
+  + Multiple searches can be done by seperating them with an &
 
 `POST /user_departments`
 Creates a new user_department. The body of POST should be a valid User_Department. Returns the id of the created user_department.
