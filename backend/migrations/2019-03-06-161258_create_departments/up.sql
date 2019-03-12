@@ -1,8 +1,11 @@
 -- Your SQL goes here
-CREATE TABLE users (
+CREATE TABLE departments (
   id SERIAL PRIMARY KEY,
-  first_name VARCHAR(255) NOT NULL,
-  last_name VARCHAR(255) NOT NULL,
-  banner_id INT(9) UNSIGNED NOT NULL,
-  email VARCHAR(255)
+  name VARCHAR(255) NOT NULL,
+  abbreviation VARCHAR(255) NOT NULL
+);
+CREATE TABLE user_departments (
+  id SERIAL PRIMARY KEY,
+  user_id BIGINT NOT NULL,
+  department_id BIGINT NOT NULL
 );
