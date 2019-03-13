@@ -83,7 +83,9 @@ fn search_user_departments(
 	let mut user_departments_query =user_departments_schema::table
 		.inner_join(users_schema::table)
 		.inner_join(departments_schema::table)
-		.select((departments_schema::name,users_schema::first_name,users_schema::last_name))
+		.select((user_departments_schema::id, users_schema::id,departments_schema::id,
+			departments_schema::name,departments_schema::abbreviation, users_schema::first_name,
+			users_schema::last_name, users_schema::email, users_schema::banner_id))
 		.into_boxed();
     match user_department.user_id {
         Search::Partial(s) => {
@@ -120,7 +122,34 @@ fn search_user_departments(
             user_departments_query = user_departments_query.filter(users_schema::last_name.like(format!("{}%", s)))
         }
         Search::Exact(s) => {
-            user_departments_query = user_departments_query.filter(users_schema::first_name.eq(s))
+            user_departments_query = user_departments_query.filter(users_schema::last_name.eq(s))
+        }
+        Search::NoSearch => {}
+	}
+	match user_department.user_email {
+        NullableSearch::Partial(s) => {
+            user_departments_query = user_departments_query.filter(users_schema::email.like(format!("{}%", s)))
+        }
+
+        NullableSearch::Exact(s) => {
+            user_departments_query = user_departments_query.filter(users_schema::email.eq(s))
+        }
+
+        NullableSearch::Some => {
+            user_departments_query = user_departments_query.filter(users_schema::email.is_not_null());
+        }
+
+        NullableSearch::None => {
+            user_departments_query = user_departments_query.filter(users_schema::email.is_null());
+        }
+		NullableSearch::NoSearch => {}
+	}
+	match user_department.user_banner {
+	    Search::Partial(s) => {
+            user_departments_query = user_departments_query.filter(users_schema::banner_id.eq(s))
+        }
+        Search::Exact(s) => {
+            user_departments_query = user_departments_query.filter(users_schema::banner_id.eq(s))
         }
         Search::NoSearch => {}
 	}

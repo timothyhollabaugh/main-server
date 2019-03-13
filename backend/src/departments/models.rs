@@ -36,9 +36,15 @@ pub struct UserDepartment {
 }
 #[derive(Queryable, Serialize, Deserialize)]
 pub struct UserDepartmentJoin {
-    pub name: String,
-	pub first_name: String,
-	pub last_name: String,
+    pub id: u64,
+	pub user_id: u64,
+	pub department_id: u64,
+	pub department_name: String,
+	pub department_abbreviation:String,
+	pub user_first_name: String,
+	pub user_last_name: String,
+	pub user_email: Option<String>,
+	pub user_banner_id: u32,
 }
 
 
@@ -78,6 +84,8 @@ pub struct SearchUserDepartments {
     pub department_id: Search<u64>,
 	pub user_first_name: Search<String>,
 	pub user_last_name: Search<String>,
+	pub user_email: NullableSearch<String>,
+	pub user_banner: Search<u32>,
 	pub department_name: Search<String>,
 	pub department_abbreviation: Search<String>,
 }
@@ -181,6 +189,8 @@ impl UserDepartmentRequest {
                 let mut department_id_search = Search::NoSearch;
 				let mut user_first_name_search = Search::NoSearch;
 				let mut user_last_name_search = Search::NoSearch;
+				let mut user_email_search = NullableSearch::NoSearch;
+				let mut user_banner_search = Search::NoSearch;
 				let mut department_name_search = Search::NoSearch;
 				let mut department_abbreviation_search = Search::NoSearch;
 
@@ -191,6 +201,8 @@ impl UserDepartmentRequest {
                         "department_id" => department_id_search = Search::from_query(query.as_ref())?,
 						"user_first_name" =>user_first_name_search = Search::from_query(query.as_ref())?,
 						"user_last_name" =>user_last_name_search = Search::from_query(query.as_ref())?,
+						"user_email" => user_email_search = NullableSearch::from_query(query.as_ref())?,
+						"user_banner" => user_banner_search = Search::from_query(query.as_ref())?,
 						"department_name" =>department_name_search = Search::from_query(query.as_ref())?,
 						"department_abbreviation" =>department_abbreviation_search = Search::from_query(query.as_ref())?,
                         _ => return Err(WebdevError::new(WebdevErrorKind::Format)),
@@ -202,6 +214,8 @@ impl UserDepartmentRequest {
                     department_id: department_id_search,
 					user_first_name: user_first_name_search,
 					user_last_name:user_last_name_search,
+					user_email:user_email_search,
+					user_banner:user_banner_search,
 					department_name:department_name_search,
 					department_abbreviation: department_abbreviation_search,
 										
